@@ -1,11 +1,35 @@
 import { useState } from 'react'
 
+const Statistics = ({good,neutral,bad,all,average,positive}) => {
+    return (
+        <div>
+            <p>Statistics</p>
+            <div>
+                {all > 0 ? (
+                    <div>
+                        <p>good {good}</p>
+                        <p>neutral {neutral}</p>
+                        <p>bad {bad}</p>
+                        <p>All {all}</p>
+                        <p>Average {average}</p>
+                        <p>positive {positive} %</p>
+                    </div>
+
+                ) : (
+                    <div>No feedback given</div>
+                )
+                }
+            </div>
+        </div>
+    )
+}
+
 const App = () => {
-      // save clicks of each button to its own state
-      const [good, setGood] = useState(0)
-      const [neutral, setNeutral] = useState(0)
-      const [bad, setBad] = useState(0)
-      const [all,setAll] = useState(0)
+    // save clicks of each button to its own state
+    const [good, setGood] = useState(0)
+    const [neutral, setNeutral] = useState(0)
+    const [bad, setBad] = useState(0)
+    const [all, setAll] = useState(0)
       const [average, setAverage] = useState(0)
 
     const handleGood = () => {
@@ -35,7 +59,7 @@ const App = () => {
         setAverage(average_score)
     }
 
-    let postive = (good / all) * 100 || 0;
+    const positive = (good / all) * 100 || 0;
 
     return (
     <div>
@@ -45,15 +69,7 @@ const App = () => {
             <button onClick={handleNeutral}>neutral</button>
             <button onClick={handleBad}>bad</button>
         </div>
-        <p>Statistics</p>
-        <div>
-            <p>good {good}</p>
-            <p>neutral {neutral}</p>
-            <p>bad {bad}</p>
-        </div>
-        <p>All {all}</p>
-        <p>Average {average}</p>
-        <p>positive {postive} %</p>
+        <Statistics good={good} neutral={neutral} bad={bad} all={all} average={average} positive={positive}/>
     </div>
   )
 }
