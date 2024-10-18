@@ -1,19 +1,22 @@
-import { useState } from 'react'
+import {useState} from 'react'
 
-const Button = (props) =>{
+const Button = (props) => {
     return (
         <button onClick={props.handlefeedback}>{props.feedback}</button>
     )
 }
 
-const StatisticLine = ({text,value}) =>{
+const StatisticLine = ({text, value}) => {
     return (
-        <p>{text} {value}</p>
+        <tr>
+            <td>{text}</td>
+            <td>{value}</td>
+        </tr>
     )
 }
 
 const Statistics = ({good, neutral, bad}) => {
-    const total = good+bad+neutral
+    const total = good + bad + neutral
     const getAverage = (good - bad) / total
     const positive = (good / total) * 100 || 0;
 
@@ -22,15 +25,15 @@ const Statistics = ({good, neutral, bad}) => {
             <p>Statistics</p>
             <div>
                 {total > 0 ? (
-                    <div>
-                      <StatisticLine text="good" value ={good} />
-                      <StatisticLine text="neutral" value ={neutral} />
-                      <StatisticLine text="bad" value ={bad} />
-                      <StatisticLine text="All" value ={total} />
-                      <StatisticLine text="average" value ={getAverage} />
-                      <StatisticLine text="positive" value ={positive} />
+                    <table>
+                        <StatisticLine text="good" value={good}/>
+                        <StatisticLine text="neutral" value={neutral}/>
+                        <StatisticLine text="bad" value={bad}/>
+                        <StatisticLine text="All" value={total}/>
+                        <StatisticLine text="average" value={getAverage}/>
+                        <StatisticLine text="positive" value={positive}/>
 
-                    </div>
+                    </table>
 
                 ) : (
                     <div>No feedback given</div>
@@ -48,8 +51,8 @@ const App = () => {
     const [bad, setBad] = useState(0)
 
     const handleGood = () => {
-          const good_score = good + 1
-          setGood(good_score)
+        const good_score = good + 1
+        setGood(good_score)
     }
 
     const handleNeutral = () => {
@@ -58,21 +61,21 @@ const App = () => {
     }
 
     const handleBad = () => {
-        const  bad_score = bad + 1
+        const bad_score = bad + 1
         setBad(bad_score)
     }
 
     return (
-    <div>
-      <p>give feedback</p>
         <div>
-            <Button handlefeedback={handleGood} feedback="good"/>
-            <Button handlefeedback={handleNeutral} feedback="neutral"/>
-            <Button handlefeedback={handleBad} feedback="bad"/>
+            <p>give feedback</p>
+            <div>
+                <Button handlefeedback={handleGood} feedback="good"/>
+                <Button handlefeedback={handleNeutral} feedback="neutral"/>
+                <Button handlefeedback={handleBad} feedback="bad"/>
+            </div>
+            <Statistics good={good} neutral={neutral} bad={bad}/>
         </div>
-        <Statistics good={good} neutral={neutral} bad={bad}/>
-    </div>
-  )
+    )
 }
 
 export default App
